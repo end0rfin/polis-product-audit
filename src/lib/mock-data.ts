@@ -55,9 +55,9 @@ export const PRODUCTS: Product[] = names.map(([name, lob], i) => ({
   name,
   lob,
   version: i % 3 === 0 ? "1.0" : i % 3 === 1 ? "2.1" : "3.0",
-  status: i === 0 ? "draft" : statuses[i % statuses.length],
+  status: i === 0 ? "draft" : statuses[i % statuses.length]!,
   updatedAt: `${String(((i * 3) % 27) + 1).padStart(2, "0")}.10.2026`,
-  owner: owners[i % owners.length],
+  owner: owners[i % owners.length]!,
   programs: (i % 4) + 1,
   completeness: i === 0 ? 72 : 60 + ((i * 13) % 41),
 }));
