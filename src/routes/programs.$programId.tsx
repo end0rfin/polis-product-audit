@@ -7,8 +7,8 @@ import { PROGRAMS, PRODUCTS, STATUS_META } from "@/lib/mock-data";
 type Tab = "info" | "risks" | "series" | "chars";
 
 export const Route = createFileRoute("/programs/$programId")({
-  validateSearch: (s: Record<string, unknown>): { tab?: Tab } => ({
-    tab: ["info", "risks", "series", "chars"].includes(s.tab as string) ? (s.tab as Tab) : undefined,
+  validateSearch: (s: Record<string, unknown>): { tab?: Tab | undefined } => ({
+    tab: ["info", "risks", "series", "chars"].includes(s["tab"] as string) ? (s["tab"] as Tab) : undefined,
   }),
   head: () => ({
     meta: [
@@ -24,8 +24,8 @@ export const Route = createFileRoute("/programs/$programId")({
 function ProgramPage() {
   const { programId } = Route.useParams();
   const { tab = "info" } = Route.useSearch();
-  const pr = PROGRAMS.find((x) => x.id === programId) ?? PROGRAMS[0];
-  const product = PRODUCTS[0];
+  const pr = PROGRAMS.find((x) => x.id === programId) ?? PROGRAMS[0]!;
+  const product = PRODUCTS[0]!;
   const [chars, setChars] = useState(pr.characteristics);
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
@@ -36,7 +36,7 @@ function ProgramPage() {
     { id: "series", label: "Серии", count: pr.series },
     { id: "chars", label: "Характеристики", count: chars.length },
   ];
-  const fields = pr.fields.length ? pr.fields : PROGRAMS[0].fields;
+  const fields = pr.fields.length ? pr.fields : PROGRAMS[0]!.fields;
   const empty = fields.filter((f) => !f.value).length;
 
   return (

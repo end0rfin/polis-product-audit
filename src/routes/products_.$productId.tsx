@@ -18,7 +18,7 @@ export const Route = createFileRoute("/products_/$productId")({
 
 function ProductPage() {
   const { productId } = Route.useParams();
-  const p = PRODUCTS.find((x) => x.id === productId) ?? PRODUCTS[0];
+  const p = PRODUCTS.find((x) => x.id === productId) ?? PRODUCTS[0]!;
   const [chars, setChars] = useState([{ id: "pc1", name: "Полис учтён на стороне банка?", value: "Да" }]);
   const [confirm, setConfirm] = useState<string | null>(null);
 
